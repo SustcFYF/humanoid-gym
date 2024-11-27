@@ -1,0 +1,146 @@
+<?xml version="1.0" ?>
+<robot name="pointfoot">
+  <!-- 机器人主体 -->
+  <link name="torso">
+    <inertial>
+      <mass value="4"/>
+      <origin xyz="0 0 0.5"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.05 0.15 0.1"/>
+      </geometry>
+      <material name="robot_color"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.15 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 右腿大腿 -->
+  <link name="right_thigh">
+    <inertial>
+      <mass value="2"/>
+      <origin xyz="0 0 -0.2"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <capsule length="0.14" radius="0.01"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <capsule length="0.14" radius="0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 右腿髋关节 -->
+  <joint name="rightHipPit" type="hinge">
+    <parent link="torso"/>
+    <child link="right_thigh"/>
+    <origin xyz="0 0 -0.13" rpy="0 1.57 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-60" upper="20" effort="10" velocity="1"/>
+  </joint>
+
+  <!-- 右腿小腿 -->
+  <link name="right_shin">
+    <inertial>
+      <mass value="2"/>
+      <origin xyz="0 0 -0.2"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <capsule length="0.26" radius="0.01"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <capsule length="0.26" radius="0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 右腿膝关节 -->
+  <joint name="rightKnee" type="hinge">
+    <parent link="right_thigh"/>
+    <child link="right_shin"/>
+    <origin xyz="0 0 -0.2" rpy="0 1.57 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0" upper="160" effort="10" velocity="1"/>
+  </joint>
+
+  <!-- 左腿大腿 -->
+  <link name="left_thigh">
+    <inertial>
+      <mass value="2"/>
+      <origin xyz="0 0 -0.2"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <capsule length="0.14" radius="0.01"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <capsule length="0.14" radius="0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 左腿髋关节 -->
+  <joint name="leftHipPit" type="hinge">
+    <parent link="robot"/>
+    <child link="left_thigh"/>
+    <origin xyz="0 0.1 -0.13" rpy="0 1.57 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-80" upper="20" effort="10" velocity="1"/>
+  </joint>
+
+  <!-- 左腿小腿 -->
+  <link name="left_shin">
+    <inertial>
+      <mass value="2"/>
+      <origin xyz="0 0 -0.2"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <capsule length="0.26" radius="0.01"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <capsule length="0.26" radius="0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 左腿膝关节 -->
+  <joint name="leftKnee" type="hinge">
+    <parent link="left_thigh"/>
+    <child link="left_shin"/>
+    <origin xyz="0 0 -0.2" rpy="0 1.57 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0" upper="160" effort="10" velocity="1"/>
+  </joint>
+
+  <!-- 定义电机 -->
+  <actuator>
+    <motor name="rightHipPit" joint="rightHipPit"/>
+    <motor name="rightKnee" joint="rightKnee"/>
+    <motor name="leftHipPit" joint="leftHipPit"/>
+    <motor name="leftKnee" joint="leftKnee"/>
+  </actuator>
+</robot>
